@@ -1,0 +1,19 @@
+mysql:
+    host: "localhost"
+    database: apiv2
+    user: root
+    password: 
+    time_zone: "+8:00"
+
+redis:
+    host: "127.0.0.1"
+    port: 6379
+
+tornado:
+    debug: True
+    autoreload: True
+
+log:
+    debug: "/data/log/gzbusnow/debug.log"
+
+

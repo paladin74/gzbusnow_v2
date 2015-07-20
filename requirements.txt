@@ -1,0 +1,6 @@
+tornado>=3.2
+torndb>=0.2
+PyYAML>=3.10
+pycrypto>=2.6.1
+MySQL-python>=1.2.5
+redis>=2.10.1
