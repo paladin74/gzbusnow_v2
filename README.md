@@ -22,7 +22,7 @@ $python app.py
 
 ## API文档
 
-[查看](http://doc.chenjiehua.me/api)API接口的文档及使用方法
+[查看](http://doc.chenjiehua.me/api/)API接口的文档及使用方法
 
 ## 声明
 
