@@ -12,7 +12,6 @@ from protocols import db_cache
 
 @db_cache('buskey')
 def get_buskey(key):
-    print 'queyr'
     return db.mysql.get(
         "SELECT * FROM `buskey` WHERE `key` = %s", key)
 

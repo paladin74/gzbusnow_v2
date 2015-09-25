@@ -21,7 +21,7 @@ SITE_MOBILE = ("http://g3.gzyyjt.net:7007/unicom/", "MOKFV700")
 SITE_TELECOM = ("http://info-3g.gzyyjt.net:8008/unicom/", "B4AHQK2G")
 SITE_UNICOM = ("http://info.gzyyjt.net:9009/unicom/", "XTEIZDDM")
 
-BASEURL = "http://apiv2.chenjiehua.me"
+BASEURL = "http://api.chenjiehua.me/v2"
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
