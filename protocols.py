@@ -11,10 +11,8 @@ import tornado.web
 import logging
 import time
 import constants
-import utils
-import db
 
-from models import apps
+from models import aks
 from tornado.options import options
 
 try:
@@ -74,9 +72,9 @@ class JSONBaseHandler(tornado.web.RequestHandler):
     def db(self):
         return self.application.db
 
-    def get_app_by_ak(self, ak):
-        app_info = apps.get_info(ak)
-        return app_info
+    def get_ak(self, ak):
+        ak_info = aks.get_info(ak)
+        return ak_info
 
 
 class Arguments(object):
@@ -111,28 +109,12 @@ def ak_required(method):
         sec = int(time.time()) - int(self.arguments.get('rt'))
         if sec > 60 or sec < 0:
             return self.return_error(constants.ERR_INVALID_TIMESTAMP)
+
         # 判断ak
         ak = self.arguments.get('ak')
-        self.app_info = self.get_app_by_ak(ak)
-        if not self.app_info or self.app_info['status'] == 0:
+        self.ak_info = self.get_ak(ak)
+        if not self.ak_info or self.ak_info['status'] == 0:
             return self.return_error(constants.ERR_INVALID_AK)
 
         return method(self, *args, **kwargs)
     return wrapper
-
-
-def db_cache(master_key, ttl=86400):
-    """ 数据库缓存 """
-    def db_cache_wrap(method):
-        def wrapper(slave_key, *args, **kwargs):
-            key_name = "gzbus:%s:%s" % (master_key, slave_key)
-            data = db.redis.get(key_name)
-            if not data:
-                data = method(slave_key, *args, **kwargs)
-                if data:
-                    db.redis.setex(key_name, json.dumps(data), ttl)
-            else:
-                data = json.loads(data)
-            return data
-        return wrapper
-    return db_cache_wrap

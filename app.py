@@ -14,7 +14,7 @@ import db
 import constants
 import protocols
 
-from service import gzbus
+from service import gzbus, phone
 
 class Application(server.Application):
 
@@ -58,6 +58,10 @@ if __name__ == '__main__':
 
         # 公交查询
         (r"/bus", gzbus.GZBusnowHandler),
+        # 手机查询
+        (r"/phone", phone.PhoneRegionHandler),
+
+
     ]
 
     server.mainloop(Application(handlers))

@@ -127,5 +127,3 @@ class GZBusnowHandler(JSONBaseHandler):
             result['busTerminal'].append(b)
 
         return result
-
-
