@@ -9,7 +9,7 @@ import sys
 import constants
 import urlparse
 import tornado.web
-import json
+import ujson as json
 
 from tornado import httpclient
 from crypt import cipher

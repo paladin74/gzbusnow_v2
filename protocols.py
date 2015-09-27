@@ -11,14 +11,10 @@ import tornado.web
 import logging
 import time
 import constants
+import ujson as json
 
 from models import aks
 from tornado.options import options
-
-try:
-    import ujson as json
-except ImportError:
-    import json
 
 
 class JSONBaseHandler(tornado.web.RequestHandler):

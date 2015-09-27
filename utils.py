@@ -17,12 +17,7 @@ import os
 import socket
 import struct
 import db
-
-try:
-    import ujson as json
-except ImportError:
-    import json
-
+import ujson as json
 
 class YamlLoader(yaml.Loader):
     """ Yaml loader
