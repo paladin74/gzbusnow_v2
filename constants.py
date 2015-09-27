@@ -46,4 +46,6 @@ ERR_PHONE_LENGTH = (-3003, "手机号码长度错误")
 ERR_REGION_NULL = (-3004, "查询无结果！")
 
 """ IP相关 """
+ERR_IP_NULL = (-4001, "IP地址不能为空")
+ERR_IP_TYPE = (-4002, "IP地址格式错误")
 

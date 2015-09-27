@@ -10,11 +10,12 @@ import torndb
 import tornado.web
 import server
 import redis
+import logging
 import db
 import constants
 import protocols
 
-from service import gzbus, phone
+from service import gzbus, phone, ipregion
 
 class Application(server.Application):
 
@@ -34,6 +35,10 @@ class Application(server.Application):
             port=self.config['redis']['port'])
         self.redis = db.redis = redis.Redis(connection_pool=pool)
 
+        # ip库初始化
+        logging.info("loading ip region data...")
+        ipregion.IPInit()
+
 
 class MainHandler(protocols.JSONBaseHandler):
 
@@ -41,17 +46,9 @@ class MainHandler(protocols.JSONBaseHandler):
         self.write("hello world!")
 
 
-class TestHandler(protocols.JSONBaseHandler):
-    """ 测试 """
-
-    def get(self):
-        pass
-
-
 if __name__ == '__main__':
     handlers = [
         (r"/", MainHandler),
-        (r"/test", TestHandler),
         (r'/static/(.*)',
             tornado.web.StaticFileHandler,
             {'path': constants.STATIC_DIR}),
@@ -60,8 +57,8 @@ if __name__ == '__main__':
         (r"/bus", gzbus.GZBusnowHandler),
         # 手机查询
         (r"/phone", phone.PhoneRegionHandler),
-
-
+        # IP查询
+        (r"/ip", ipregion.IPRegionHandler),
     ]
 
     server.mainloop(Application(handlers))

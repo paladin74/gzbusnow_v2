@@ -14,6 +14,8 @@ import os.path
 import hashlib
 import logging
 import os
+import socket
+import struct
 import db
 
 try:
@@ -90,3 +92,10 @@ def md5(raw_str):
 def sha1(raw_str):
     return hashlib.new("sha1", str(raw_str)).hexdigest()
 
+
+def ip2int(ip):
+    return socket.ntohl(struct.unpack("I", socket.inet_aton(ip))[0])
+
+
+def int2ip(int_ip):
+    return socket.inet_ntoa(struct.pack("I", socket.htonl(int_ip)))
