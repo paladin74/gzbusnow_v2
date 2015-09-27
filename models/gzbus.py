@@ -8,7 +8,7 @@
 """ 公交相关 """
 
 import db
-from protocols import db_cache
+from utils import db_cache
 
 @db_cache('buskey')
 def get_buskey(key):

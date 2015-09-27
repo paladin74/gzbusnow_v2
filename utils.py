@@ -14,7 +14,12 @@ import os.path
 import hashlib
 import logging
 import os
+import db
 
+try:
+    import ujson as json
+except ImportError:
+    import json
 
 
 class YamlLoader(yaml.Loader):
@@ -38,6 +43,7 @@ class YamlLoader(yaml.Loader):
 
 YamlLoader.add_constructor('!include', YamlLoader.include)
 
+
 class Loggers(object):
     """简单的logging wrapper"""
 
@@ -58,6 +64,23 @@ class Loggers(object):
         return self.loggers[log_name]
 
 loggers = Loggers()
+
+
+def db_cache(master_key, ttl=86400):
+    """ 数据库缓存 """
+    def db_cache_wrap(method):
+        def wrapper(slave_key, *args, **kwargs):
+            key_name = "apiv2:%s:%s" % (master_key, slave_key)
+            data = db.redis.get(key_name)
+            if not data:
+                data = method(slave_key, *args, **kwargs)
+                if data:
+                    db.redis.setex(key_name, json.dumps(data), ttl)
+            else:
+                data = json.loads(data)
+            return data
+        return wrapper
+    return db_cache_wrap
 
 
 def md5(raw_str):

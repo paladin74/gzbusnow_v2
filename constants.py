@@ -38,3 +38,12 @@ ERR_SERVER_BUSY = (-2002, "服务器繁忙，请稍微重试")
 ERR_NOT_FOUND = (-2003, "查询无结果！")
 ERR_DIRECTION_ERROR = (-2004, "方向参数错误")
 ERR_ENCODE_ERROR = (-2005, "编码错误")
+
+""" 手机号码相关 """
+ERR_PHONE_NULL = (-3001, "手机号码不能为空")
+ERR_PHONE_TYPE = (-3002, "手机号码格式错误")
+ERR_PHONE_LENGTH = (-3003, "手机号码长度错误")
+ERR_REGION_NULL = (-3004, "查询无结果！")
+
+""" IP相关 """
+
