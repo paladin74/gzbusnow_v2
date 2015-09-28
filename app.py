@@ -10,7 +10,6 @@ import torndb
 import tornado.web
 import server
 import redis
-import logging
 import db
 import constants
 import protocols
@@ -36,7 +35,6 @@ class Application(server.Application):
         self.redis = db.redis = redis.Redis(connection_pool=pool)
 
         # ip库初始化
-        logging.info("loading ip region data...")
         ipregion.IPInit()
 
 
